@@ -3,7 +3,7 @@
 Plugin Name:  Stage Switcher
 Plugin URI:   https://roots.io/plugins/stage-switcher/
 Description:  A WordPress plugin that allows you to switch between different environments from the admin bar.
-Version:      2.2.0
+Version:      2.2.1
 Author:       Roots
 Author URI:   https://roots.io/
 License:      MIT License
@@ -57,19 +57,21 @@ class StageSwitcher {
       'title'  => ucwords(WP_ENV),
       'href'   => '#',
       'meta'   => [
-        'class' => 'environment-' . sanitize_html_class(strtolower(WP_ENV)),
+          'class' => 'environment-' . sanitize_html_class(strtolower(WP_ENV)),
       ],
     ]);
 
     foreach ($this->stages as $stage => $url) {
       if ($stage === WP_ENV) {
-        continue;
+          continue;
       }
 
       if ($subdomain_multisite) {
         $url = $this->multisite_url($url);
       }
 
+      // Ensure $url is a string before passing to rtrim
+      $url = is_string($url) ? $url : '';
       $url = apply_filters('bedrock/stage_switcher_url', rtrim($url, '/') . $_SERVER['REQUEST_URI'], $url, $stage);
 
       $admin_bar->add_menu([
@@ -78,7 +80,7 @@ class StageSwitcher {
         'title'  => ucwords($stage),
         'href'   => $url,
         'meta'   => [
-          'class' => 'environment-' . sanitize_html_class(strtolower($stage)),
+            'class' => 'environment-' . sanitize_html_class(strtolower($stage)),
         ],
       ]);
     }

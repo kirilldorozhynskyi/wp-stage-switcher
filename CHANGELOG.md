@@ -1,3 +1,6 @@
+### 2.2.1: May 31st, 2022
+* Fix Deprecated
+*
 ### 2.2.0: May 31st, 2022
 * Multisite refactor
 
