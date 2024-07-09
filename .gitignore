@@ -1,1 +1,3 @@
 vendor
+.prettierignore
+wp-stage-switcher.code-workspace
